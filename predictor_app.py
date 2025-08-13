@@ -69,8 +69,7 @@ user_inputs['Time'] = st.sidebar.number_input(
     'Tempo (em segundos desde a primeira transação)',
     min_value=float(ui_features_info['Time']['min']),
     max_value=float(ui_features_info['Time']['max']),
-    value=float(ui_features_info['Time']['min']),
-    value=float(ui_features_info['Time']['min']) # Valor padrão
+    value=float(ui_features_info['Time']['min'])    
 )
 user_inputs['Amount'] = st.sidebar.number_input(
     'Valor da Transação (Amount)',
@@ -173,6 +172,7 @@ if st.sidebar.button("Analisar Transação"):
 else:
 
     st.info("Por favor, insira os dados da transação na barra lateral e clique em 'Analisar Transação'.")
+
 
 
 
