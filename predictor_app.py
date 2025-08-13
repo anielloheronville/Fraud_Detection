@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-<<<<<<< HEAD
+
 # predictor_app.py (Versão Final Otimizada)
 
-=======
+
 # predictor_app.py
->>>>>>> cd196539251882b0ed11d6851800dc121380b8b3
+
 import streamlit as st
 import pandas as pd
 import joblib
@@ -12,7 +12,6 @@ import shap
 import matplotlib.pyplot as plt
 
 # =============================================================================
-<<<<<<< HEAD
 # Carregamento dos Artefatos (Apenas o necessário para a UI iniciar)
 # =============================================================================
 st.set_page_config(layout="wide", page_title="Analisador de Fraude")
@@ -38,7 +37,6 @@ if model is None:
 # =============================================================================
 # Interface do Usuário (UI) com Streamlit
 # =============================================================================
-=======
 # Carregamento dos Artefatos (Modelo, Scaler, Features)
 # =============================================================================
 try:
@@ -57,7 +55,6 @@ explainer = shap.TreeExplainer(model)
 # Interface do Usuário (UI) com Streamlit
 # =============================================================================
 st.set_page_config(layout="wide", page_title="Analisador de Fraude")
->>>>>>> cd196539251882b0ed11d6851800dc121380b8b3
 st.title("Analisador de Fraude em Transações Financeiras 🤖")
 st.write("Esta ferramenta utiliza um modelo de Machine Learning (XGBoost) para prever a probabilidade de uma transação ser fraudulenta. Insira os dados da transação na barra lateral para obter uma análise em tempo real.")
 
@@ -72,20 +69,15 @@ user_inputs['Time'] = st.sidebar.number_input(
     'Tempo (em segundos desde a primeira transação)',
     min_value=float(ui_features_info['Time']['min']),
     max_value=float(ui_features_info['Time']['max']),
-<<<<<<< HEAD
+
     value=float(ui_features_info['Time']['min'])
-=======
     value=float(ui_features_info['Time']['min']) # Valor padrão
->>>>>>> cd196539251882b0ed11d6851800dc121380b8b3
 )
 user_inputs['Amount'] = st.sidebar.number_input(
     'Valor da Transação (Amount)',
     min_value=float(ui_features_info['Amount']['min']),
-<<<<<<< HEAD
     value=100.0,
-=======
     value=100.0, # Valor padrão
->>>>>>> cd196539251882b0ed11d6851800dc121380b8b3
     format="%.2f"
 )
 
@@ -98,24 +90,18 @@ for feature in features_modelo:
             feature,
             min_value=float(info['min']),
             max_value=float(info['max']),
-<<<<<<< HEAD
             value=0.0
-=======
             value=0.0 # Valor padrão no meio
->>>>>>> cd196539251882b0ed11d6851800dc121380b8b3
         )
 
 # Botão para realizar a predição
 if st.sidebar.button("Analisar Transação"):
-<<<<<<< HEAD
-
     # --- Processamento e Predição ---
     input_df = pd.DataFrame([user_inputs])
     input_df[['Amount_Scaled', 'Time_Scaled']] = scaler.transform(input_df[['Amount', 'Time']])
     input_df_modelo = input_df[features_modelo]
     prediction_proba = model.predict_proba(input_df_modelo)[0]
     prob_fraude = prediction_proba[1]
-=======
     # --- Processamento e Predição ---
     # 1. Criar DataFrame com os dados do usuário
     input_df = pd.DataFrame([user_inputs])
@@ -129,16 +115,12 @@ if st.sidebar.button("Analisar Transação"):
     # 4. Fazer a predição de probabilidade
     prediction_proba = model.predict_proba(input_df_modelo)[0]
     prob_fraude = prediction_proba[1] # Probabilidade da classe 1 (fraude)
->>>>>>> cd196539251882b0ed11d6851800dc121380b8b3
 
     # --- Exibição dos Resultados ---
     st.header("Resultado da Análise")
 
     col1, col2 = st.columns(2)
-<<<<<<< HEAD
-=======
 
->>>>>>> cd196539251882b0ed11d6851800dc121380b8b3
     with col1:
         if prob_fraude > 0.5: # Limiar de decisão
             st.error("ALERTA: Transação Classificada como FRAUDE!")
@@ -152,7 +134,6 @@ if st.sidebar.button("Analisar Transação"):
     st.header("Justificativa da Previsão (Análise SHAP)")
     st.write("Este gráfico mostra quais fatores mais contribuíram para a decisão do modelo. Fatores em vermelho aumentam a chance de fraude, enquanto fatores em azul diminuem.")
 
-<<<<<<< HEAD
     # A tarefa pesada agora acontece SÓ DEPOIS do clique
     with st.spinner('Gerando análise de interpretabilidade...'):
         # 1. Criar o explainer do SHAP
@@ -173,7 +154,7 @@ if st.sidebar.button("Analisar Transação"):
         )
         st.pyplot(fig, bbox_inches='tight', use_container_width=True)
         st.info("O **'base value'** é a probabilidade média de fraude que o modelo aprendeu com os dados. As setas mostram como cada feature da transação atual 'empurra' essa probabilidade para o valor final da previsão **('output value')**.")
-=======
+
     # Calcular SHAP values para a única instância
     shap_values = explainer.shap_values(input_df_modelo)
 
@@ -189,8 +170,8 @@ if st.sidebar.button("Analisar Transação"):
     )
     st.pyplot(fig, bbox_inches='tight')
     st.info("O **'base value'** é a probabilidade média de fraude em todo o dataset. As setas mostram como cada feature da transação atual empurra essa probabilidade para o valor final da previsão **('output value')**.")
->>>>>>> cd196539251882b0ed11d6851800dc121380b8b3
 
 else:
 
     st.info("Por favor, insira os dados da transação na barra lateral e clique em 'Analisar Transação'.")
+
