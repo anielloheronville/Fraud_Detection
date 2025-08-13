@@ -89,7 +89,7 @@ for feature in features_modelo:
             feature,
             min_value=float(info['min']),
             max_value=float(info['max']),
-            value=0.0
+            value=0.0,
             value=0.0 # Valor padrão no meio
         )
 
@@ -173,5 +173,6 @@ if st.sidebar.button("Analisar Transação"):
 else:
 
     st.info("Por favor, insira os dados da transação na barra lateral e clique em 'Analisar Transação'.")
+
 
 
