@@ -75,7 +75,6 @@ user_inputs['Amount'] = st.sidebar.number_input(
     'Valor da Transação (Amount)',
     min_value=float(ui_features_info['Amount']['min']),
     value=100.0,
-    value=100.0, # Valor padrão
     format="%.2f"
 )
 
@@ -88,8 +87,7 @@ for feature in features_modelo:
             feature,
             min_value=float(info['min']),
             max_value=float(info['max']),
-            value=0.0,
-            value=0.0 # Valor padrão no meio
+            value=0.0
         )
 
 # Botão para realizar a predição
@@ -100,8 +98,10 @@ if st.sidebar.button("Analisar Transação"):
     input_df_modelo = input_df[features_modelo]
     prediction_proba = model.predict_proba(input_df_modelo)[0]
     prob_fraude = prediction_proba[1]
+    
     # --- Processamento e Predição ---
     # 1. Criar DataFrame com os dados do usuário
+    
     input_df = pd.DataFrame([user_inputs])
 
     # 2. Escalar 'Time' e 'Amount' com o scaler carregado
@@ -172,6 +172,7 @@ if st.sidebar.button("Analisar Transação"):
 else:
 
     st.info("Por favor, insira os dados da transação na barra lateral e clique em 'Analisar Transação'.")
+
 
 
 
